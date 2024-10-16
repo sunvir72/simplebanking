@@ -14,12 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.brainridge.simplebanking.constants.urls.TransactionURLs.TRANSACTION_HISTORY_URL;
-import static com.brainridge.simplebanking.constants.urls.TransactionURLs.TRANSFER_FUNDS_URL;
-
 @RestController
-@RequestMapping
-@Validated
+@RequestMapping("/transactions/")
+//@Validated
 public class TransactionController {
     private final TransactionService transactionService;
 
@@ -28,13 +25,13 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @PostMapping(TRANSFER_FUNDS_URL)
+    @PostMapping("transfer_funds")
     public ResponseEntity<TransferFundsResponseDTO> transferFunds(@Valid @RequestBody TransferFundsRequestDTO request) {
         TransferFundsResponseDTO response = transactionService.transferFunds(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping(TRANSACTION_HISTORY_URL)
+    @PostMapping("history")
     public ResponseEntity<List<TransactionHistoryResponseDTO>> getTransactionHistory(@Valid @RequestBody TransactionHistoryRequestDTO request) {
         List<TransactionHistoryResponseDTO> response = transactionService.getTransactionHistory(request);
         return new ResponseEntity<>(response, HttpStatus.OK);

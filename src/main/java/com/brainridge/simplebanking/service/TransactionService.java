@@ -1,6 +1,6 @@
 package com.brainridge.simplebanking.service;
 
-import com.brainridge.simplebanking.constants.TransactionType;
+import com.brainridge.simplebanking.constants.enums.DebitCredit;
 import com.brainridge.simplebanking.dto.TransactionHistoryRequestDTO;
 import com.brainridge.simplebanking.dto.TransactionHistoryResponseDTO;
 import com.brainridge.simplebanking.dto.TransferFundsRequestDTO;
@@ -49,10 +49,10 @@ public class TransactionService {
         Account senderAccount = accountService.debitAmount(request.getSenderAccountId(), amount);
         Account receiverAccount = accountService.creditAmount(request.getReceiverAccountId(), amount);
         Transaction senderTransaction = new Transaction(senderAccount.getId(),
-                TransactionType.DEBIT, amount, senderAccount.getBalance(), receiverAccount.getEmail());
+                DebitCredit.DEBIT, amount, senderAccount.getBalance(), receiverAccount.getEmail());
         transactionRepository.save(senderTransaction);
         Transaction receiverTransaction = new Transaction(receiverAccount.getId(),
-                TransactionType.CREDIT, amount, receiverAccount.getBalance(), senderAccount.getEmail());
+                DebitCredit.CREDIT, amount, receiverAccount.getBalance(), senderAccount.getEmail());
         transactionRepository.save(receiverTransaction);
         return TransferFundsResponseDTO.builder()
                 .createdAt(senderTransaction.getCreatedAt())

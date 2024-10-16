@@ -1,6 +1,6 @@
 package com.brainridge.simplebanking.dto;
 
-import com.brainridge.simplebanking.constants.TransactionType;
+import com.brainridge.simplebanking.constants.enums.DebitCredit;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +18,7 @@ public class TransactionHistoryResponseDTO {
 
     BigDecimal balance;
 
-    TransactionType transactionType;
+    DebitCredit transactionType;
 
     String counterPartyEmail;
 

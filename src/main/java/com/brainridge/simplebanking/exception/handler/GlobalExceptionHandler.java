@@ -1,9 +1,10 @@
-package com.brainridge.simplebanking.config;
+package com.brainridge.simplebanking.exception.handler;
 
 import com.brainridge.simplebanking.dto.ErrorResponse;
 import com.brainridge.simplebanking.exception.CreateAccountException;
 import com.brainridge.simplebanking.exception.TransactionHistoryException;
 import com.brainridge.simplebanking.exception.TransferFundsException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -35,10 +36,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ExceptionHandler({HttpMessageNotReadableException.class, InvalidFormatException.class})
     public ResponseEntity<ErrorResponse> handleParsingExceptions(HttpMessageNotReadableException ex) {
+        String message = ex.getCause().getMessage();
         return new ResponseEntity<>(
-                new ErrorResponse("Incorrect JSON", HttpStatus.BAD_REQUEST.value()),
+                new ErrorResponse(message, HttpStatus.BAD_REQUEST.value()),
                 HttpStatus.BAD_REQUEST);
     }
 

@@ -1,6 +1,6 @@
 package com.brainridge.simplebanking.model;
 
-import com.brainridge.simplebanking.constants.TransactionType;
+import com.brainridge.simplebanking.constants.enums.DebitCredit;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ public class Transaction {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TransactionType transactionType;
+    private DebitCredit transactionType;
 
     @Column(nullable = false)
     private String counterPartyEmail;
@@ -39,7 +39,7 @@ public class Transaction {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    public Transaction(Long accountId, TransactionType transactionType, BigDecimal amount,
+    public Transaction(Long accountId, DebitCredit transactionType, BigDecimal amount,
                        BigDecimal balance, String counterPartyEmail) {
         this.accountId = accountId;
         this.amount = amount;
