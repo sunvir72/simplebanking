@@ -1,11 +1,11 @@
 package com.brainridge.simplebanking.service;
 
-import com.brainridge.simplebanking.exception.CreateAccountException;
-import com.brainridge.simplebanking.repository.AccountRepository;
 import com.brainridge.simplebanking.dto.CreateAccountRequestDTO;
 import com.brainridge.simplebanking.dto.CreateAccountResponseDTO;
+import com.brainridge.simplebanking.exception.CreateAccountException;
 import com.brainridge.simplebanking.model.Account;
-import com.brainridge.simplebanking.service.validators.CreateAccountValidationService;
+import com.brainridge.simplebanking.repository.AccountRepository;
+import com.brainridge.simplebanking.service.validators.IValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +17,11 @@ import java.util.List;
 @Service
 public class AccountService {
     private final AccountRepository accountRepository;
-    private final CreateAccountValidationService validationService;
+    private final IValidationService<CreateAccountRequestDTO> validationService;
 
     @Autowired
     AccountService(AccountRepository accountRepository,
-                   CreateAccountValidationService validationService) {
+                   IValidationService<CreateAccountRequestDTO> validationService) {
         this.accountRepository = accountRepository;
         this.validationService = validationService;
     }

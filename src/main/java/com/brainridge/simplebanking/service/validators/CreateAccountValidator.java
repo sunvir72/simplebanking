@@ -22,7 +22,7 @@ public class CreateAccountValidator implements ICustomValidator<CreateAccountReq
     public List<String> validate(CreateAccountRequestDTO request) {
         List<String> errors = new ArrayList<>();
         if (accountRepository.findByEmail(request.getEmail()).isPresent()) {
-            errors.add("Account already exists");//TODO: Create Enum for errors containing error message and code
+            errors.add("Account already exists");
         }
         return errors;
     }
